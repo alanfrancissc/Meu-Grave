@@ -279,3 +279,71 @@ body.submitting:before{content:"ENVIANDO SEU PEDIDO...";position:fixed;z-index:9
 .delivery-public-page .elapsed-time{font-family:Impact,Haettenschweiler,'Arial Narrow Bold',sans-serif;font-size:clamp(42px,7vw,82px);text-transform:uppercase;margin-top:12px}
 .delivery-public-page .elapsed-caption{text-transform:uppercase;font-weight:900;letter-spacing:1px}
 @media(max-width:760px){.delivery-public-page .media-frame{min-height:280px}.delivery-public-page .gallery{grid-template-columns:1fr}.delivery-public-page .delivery-cover{box-shadow:4px 4px 0 var(--pink)}}
+
+
+/* v0.3.0 — otimização da página exclusiva para celular */
+.delivery-public-page #videoButtons{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+  margin:16px 0 0;
+}
+.delivery-public-page #videoButtons .btn,
+.delivery-public-page #audioDownload{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:100%;
+  min-width:0;
+  text-align:center;
+  text-decoration:none;
+  white-space:normal;
+  line-height:1.15;
+}
+.delivery-public-page #audioSection > p{margin:16px 0 0}
+.delivery-public-page .media-frame{
+  display:block;
+  aspect-ratio:16/9;
+  height:auto;
+  min-height:0;
+}
+.delivery-public-page .panel{overflow:hidden}
+
+@media(max-width:640px){
+  .delivery-public-page .topbar-inner{min-height:82px;gap:10px}
+  .delivery-public-page .topbar .brand{font-size:23px;line-height:.95}
+  .delivery-public-page .topbar .brand small{font-size:9px;letter-spacing:1.7px;margin-top:6px}
+  .delivery-public-page .topbar .btn{padding:11px 13px;font-size:12px;white-space:nowrap}
+  .delivery-public-page .delivery-hero{padding:34px 0 18px}
+  .delivery-public-page .delivery-hero .kicker{font-size:10px;letter-spacing:2px}
+  .delivery-public-page .delivery-hero .section-title{font-size:clamp(48px,15vw,72px);overflow-wrap:anywhere}
+  .delivery-public-page .section{padding:34px 0}
+  .delivery-public-page .panel{padding:16px;box-shadow:5px 5px 0 #111}
+  .delivery-public-page .panel .section-title,
+  .delivery-public-page #lyricSection > .section-title,
+  .delivery-public-page #gallerySection > .section-title{
+    font-size:clamp(38px,12vw,56px)!important;
+    line-height:.92;
+    overflow-wrap:anywhere;
+  }
+  .delivery-public-page #videoButtons{grid-template-columns:1fr;gap:11px}
+  .delivery-public-page #videoButtons .btn,
+  .delivery-public-page #audioDownload{
+    min-height:52px;
+    padding:13px 14px;
+    font-size:14px;
+    box-shadow:4px 4px 0 var(--pink);
+  }
+  .delivery-public-page #videoButtons .btn.pink,
+  .delivery-public-page #audioDownload.btn.pink{box-shadow:4px 4px 0 #111}
+  .delivery-public-page .lyrics{padding:22px 18px;font-size:16px;line-height:1.65;box-shadow:5px 5px 0 #111}
+  .delivery-public-page .footer{padding:28px 0}
+  .delivery-public-page .footer-grid{gap:20px}
+  .delivery-public-page .footer .btn{width:100%;text-align:center}
+}
+
+@media(max-width:380px){
+  .delivery-public-page .topbar .brand{font-size:20px}
+  .delivery-public-page .topbar .brand .crown{font-size:18px}
+  .delivery-public-page .topbar .btn{padding:10px 9px;font-size:11px}
+}

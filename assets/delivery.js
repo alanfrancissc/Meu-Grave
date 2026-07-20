@@ -18,7 +18,8 @@
   }
 
   function tokenFromUrl() {
-    return new URLSearchParams(location.search).get('token') || '';
+    const params = new URLSearchParams(location.search);
+    return params.get('t') || params.get('token') || '';
   }
 
   function loadDelivery() {
@@ -34,7 +35,7 @@
     }
 
     const script = document.createElement('script');
-    script.src = `${BACKEND_URL}?action=githubDelivery&callback=MEU_GRAVE_DELIVERY&token=${encodeURIComponent(token)}&_=${Date.now()}`;
+    script.src = `${BACKEND_URL}?action=githubDelivery&callback=MEU_GRAVE_DELIVERY&t=${encodeURIComponent(token)}&_=${Date.now()}`;
     script.async = true;
     script.onerror = () => setStatus(status, 'Não foi possível abrir esta página agora.', 'error');
     document.head.appendChild(script);
