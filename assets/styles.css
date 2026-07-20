@@ -347,3 +347,5 @@ body.submitting:before{content:"ENVIANDO SEU PEDIDO...";position:fixed;z-index:9
   .delivery-public-page .topbar .brand .crown{font-size:18px}
   .delivery-public-page .topbar .btn{padding:10px 9px;font-size:11px}
 }
+
+.coupon-box{border:2px dashed #111;background:#fff6fa;padding:16px;margin:16px 0}.coupon-row{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center}@media(max-width:640px){.coupon-row{grid-template-columns:1fr}.coupon-row .btn{width:100%}}

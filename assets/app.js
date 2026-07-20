@@ -177,13 +177,33 @@
     if (publicationConsent) publicationConsent.required = includesChannel;
   }
 
-  qs('#packageSelect').addEventListener('change', toggleExclusiveFields);
+  qs('#packageSelect').addEventListener('change', () => {
+    toggleExclusiveFields();
+    const code=qs('#couponCode'); if(code) code.value='';
+    const status=qs('#couponStatus'); if(status) status.classList.add('hidden');
+  });
 
   function choosePackage(id) {
     qs('#packageSelect').value = id;
     toggleExclusiveFields();
     scrollToSection('pedido');
   }
+
+  async function applyCoupon(){
+    const status=qs('#couponStatus');
+    try{
+      const packageId=qs('#packageSelect').value;
+      const couponCode=qs('#couponCode').value.trim();
+      if(!packageId)throw new Error('Selecione primeiro um pacote.');
+      if(!couponCode)throw new Error('Digite um cupom.');
+      setStatus(status,'Verificando cupom...');
+      const result=await submitThroughBridge('githubValidateCoupon',{createdAt:Date.now(),packageId,couponCode});
+      qs('#couponCode').value=result.code;
+      setStatus(status,`${result.message} Novo valor: ${result.final}`,'ok');
+    }catch(err){setStatus(status,err.message||String(err),'error')}
+  }
+  const couponButton=qs('#applyCouponButton');
+  if(couponButton)couponButton.addEventListener('click',applyCoupon);
 
   function formToObject(form) {
     const data = {};
