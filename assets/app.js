@@ -41,8 +41,8 @@
       {
         id: 'FULL', name: 'Pacote completo', price: 'R$ 40,00',
         tagline: 'A experiência completa do MEU GRAVE',
-        description: 'Música, vídeo, publicação no canal e uma página exclusiva para ouvir, ver a letra, visualizar fotos e baixar os arquivos.',
-        includes: ['Música personalizada', 'Vídeo personalizado', 'Publicação no canal após aprovação', 'Página exclusiva com música, letra, fotos e vídeo', 'Área Minhas Músicas e downloads']
+        description: 'Música, vídeo, publicação no canal e uma página exclusiva para ouvir, ler a letra, ver fotos, baixar arquivos e divulgar seus links.',
+        includes: ['Música personalizada', 'Vídeo personalizado', 'Publicação no canal após aprovação', 'Página exclusiva com player, letra, fotos e vídeo', 'Links de Instagram, YouTube, TikTok, Facebook, X, site e WhatsApp', 'Área Minhas Músicas e downloads']
       }
     ]
   };
@@ -115,13 +115,19 @@
     }
   }
 
+  function packagePriceMarkup(pkg) {
+    if (!pkg.offerActive) return `<div class="price">${escapeHtml(pkg.price)}</div>`;
+    return `<div class="price-block"><div class="old-price">De ${escapeHtml(pkg.originalPrice)}</div><div class="price">${escapeHtml(pkg.price)}</div><span class="savings">Economize ${escapeHtml(pkg.savings)}</span><small class="offer-note">${escapeHtml(pkg.offerEndsLabel)}</small></div>`;
+  }
+
   function renderPackages() {
     const packages = Array.isArray(bootstrap?.packages) ? bootstrap.packages : [];
     qs('#packageCards').innerHTML = packages.map(pkg => `
-      <article class="card ${pkg.id === 'FULL' ? 'featured' : ''}">
+      <article class="card ${pkg.id === 'FULL' ? 'featured' : ''} ${pkg.offerActive ? 'on-sale' : ''}">
+        ${pkg.offerActive ? `<div class="offer-ribbon"><span>${escapeHtml(pkg.offerLabel)}</span><strong>-${escapeHtml(pkg.discountPercent)}%</strong></div>` : ''}
         <span class="tag">${pkg.id === 'FULL' ? 'Página exclusiva incluída' : 'Produção personalizada'}</span>
         <h3>${escapeHtml(pkg.name)}</h3>
-        <div class="price">${escapeHtml(pkg.price)}</div>
+        ${packagePriceMarkup(pkg)}
         <p><strong>${escapeHtml(pkg.tagline)}</strong></p>
         <p>${escapeHtml(pkg.description)}</p>
         <ul>${(pkg.includes || []).map(item => `<li>${escapeHtml(item)}</li>`).join('')}</ul>
@@ -130,12 +136,13 @@
     `).join('');
 
     qs('#packageSelect').innerHTML = '<option value="">Selecione...</option>' + packages
-      .map(pkg => `<option value="${escapeHtml(pkg.id)}">${escapeHtml(pkg.name)} — ${escapeHtml(pkg.price)}</option>`)
+      .map(pkg => `<option value="${escapeHtml(pkg.id)}">${escapeHtml(pkg.name)} — ${escapeHtml(pkg.price)}${pkg.offerActive ? ' (oferta -' + escapeHtml(pkg.discountPercent) + '%)' : ''}</option>`)
       .join('');
 
     qsa('[data-package-id]').forEach(button => {
       button.addEventListener('click', () => choosePackage(button.dataset.packageId));
     });
+    toggleExclusiveFields();
   }
 
   function renderConfig() {
@@ -150,8 +157,31 @@
     qs('#footerContact').innerHTML = parts.join(' · ');
   }
 
+  function toggleExclusiveFields() {
+    const select = qs('#packageSelect');
+    const box = qs('#exclusivePageFields');
+    if (!select || !box) return;
+    const packageId = select.value;
+    const isFull = packageId === 'FULL';
+    const includesChannel = ['MUSIC_VIDEO_CHANNEL', 'FULL'].includes(packageId);
+    box.classList.toggle('hidden', !isFull);
+    qsa('input,textarea,select', box).forEach(field => { field.disabled = !isFull; });
+    const consent = box.querySelector('[name="publicPageConsent"]');
+    if (consent) consent.required = isFull;
+    const channelBox = qs('#channelPublicationFields');
+    if (channelBox) {
+      channelBox.classList.toggle('hidden', !includesChannel);
+      qsa('input,textarea,select', channelBox).forEach(field => { field.disabled = !includesChannel; });
+    }
+    const publicationConsent = document.querySelector('[name="publicationConsent"]');
+    if (publicationConsent) publicationConsent.required = includesChannel;
+  }
+
+  qs('#packageSelect').addEventListener('change', toggleExclusiveFields);
+
   function choosePackage(id) {
     qs('#packageSelect').value = id;
+    toggleExclusiveFields();
     scrollToSection('pedido');
   }
 
@@ -164,7 +194,7 @@
     }
     [
       'useSubjectNameInLyrics', 'hasOwnLyrics', 'publicationConsent', 'photoConsent',
-      'termsAccepted', 'creativeDirectionAccepted', 'revisionPolicyAccepted'
+      'termsAccepted', 'creativeDirectionAccepted', 'revisionPolicyAccepted', 'publicPageConsent'
     ].forEach(name => {
       data[name] = Boolean(form.elements[name] && form.elements[name].checked);
     });
@@ -268,6 +298,7 @@
   function resetOrderForm() {
     const form = qs('#orderForm');
     form.reset();
+    toggleExclusiveFields();
     qs('#orderSuccess').classList.add('hidden');
     qs('#orderIntroPanel').classList.remove('hidden');
     form.classList.remove('hidden');

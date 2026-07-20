@@ -28,7 +28,7 @@
     <section class="hero">
       <div class="shell hero-grid">
         <div>
-          <div class="kicker">Produção personalizada do Senta no Grave</div>
+          <div class="kicker">Produção Senta no Grave</div>
           <h1 class="display">Sua história.<br><span class="pink">Seu grave.</span></h1>
           <p class="lead">Uma música original para seu carro, sua mãe, sua namorada, seu amigo, sua empresa ou qualquer momento que mereça virar som.</p>
           <div class="hero-actions">
@@ -186,6 +186,50 @@
               <input type="file" name="photo3" accept="image/*">
             </div>
 
+
+            <div id="exclusivePageFields" class="panel hidden" style="margin:24px 0;background:#fff7fb;border-color:#f4005b">
+              <div class="kicker">Somente no Pacote Completo</div>
+              <h3 style="font-family:Impact;font-size:34px;margin:0 0 10px;text-transform:uppercase">Página exclusiva e divulgação</h3>
+              <div class="public-link-warning"><strong>Atenção:</strong> esta página será pública por link. Qualquer pessoa que receber o endereço poderá visualizar a música, letra, fotos, vídeo, contador, redes sociais e contatos publicados.</div><p>Use os campos abaixo para personalizar a página de uma pessoa, projeto, empresa, loja ou canal.</p>
+              <div class="grid-2">
+                <div class="field">
+                  <label>Título público da página</label>
+                  <input name="exclusivePageTitle" maxlength="160" placeholder="Nome da empresa, projeto, carro ou homenagem">
+                </div>
+                <div class="field">
+                  <label>Apresentação pública</label>
+                  <textarea name="exclusivePageDescription" maxlength="1200" placeholder="Texto curto sobre a pessoa, empresa, projeto ou produção."></textarea>
+                </div>
+              </div>
+              <div class="grid-2">
+                <div class="field"><label>Instagram</label><input name="publicInstagram" maxlength="500" placeholder="https://instagram.com/..."></div>
+                <div class="field"><label>YouTube</label><input name="publicYoutube" maxlength="500" placeholder="https://youtube.com/@..."></div>
+                <div class="field"><label>TikTok</label><input name="publicTiktok" maxlength="500" placeholder="https://tiktok.com/@..."></div>
+                <div class="field"><label>Facebook</label><input name="publicFacebook" maxlength="500" placeholder="https://facebook.com/..."></div>
+                <div class="field"><label>X</label><input name="publicX" maxlength="500" placeholder="https://x.com/..."></div>
+                <div class="field"><label>Site</label><input name="publicWebsite" maxlength="500" placeholder="https://seusite.com.br"></div>
+              </div>
+              <div class="field">
+                <label>WhatsApp público</label>
+                <input name="publicWhatsapp" maxlength="200" placeholder="5524999999999 ou link wa.me">
+                <small>Use somente um contato que possa ser exibido publicamente.</small>
+              </div>
+              <div class="grid-2">
+                <div class="field"><label>Descrição da data especial (opcional)</label><input name="specialDateLabel" maxlength="120" placeholder="Ex.: Nascimento da Manuela"></div>
+                <div class="field"><label>Data especial (opcional)</label><input type="date" name="specialDate"><small>A página calculará automaticamente o tempo desde essa data.</small></div>
+              </div>
+              <label class="check">
+                <input type="checkbox" name="publicPageConsent">
+                <span>Entendo e autorizo que a página exclusiva é pública por link. Qualquer pessoa que receber o endereço poderá visualizar todo o conteúdo publicado nela.</span>
+              </label>
+            </div>
+
+            <div id="channelPublicationFields" class="panel hidden" style="margin:24px 0;background:#f4f7ff;border-color:#111">
+              <div class="kicker">Pacotes com publicação no canal</div>
+              <h3 style="font-family:Impact;font-size:32px;margin:0 0 10px;text-transform:uppercase">Visibilidade do vídeo</h3>
+              <div class="field"><label>Como o vídeo deverá ser publicado no YouTube?</label><select name="youtubeVisibility"><option value="PUBLIC">Público — aparece normalmente no canal</option><option value="UNLISTED">Não listado — somente quem tem o link</option></select><small>O vídeo não listado não aparece publicamente no canal, mas qualquer pessoa com o link poderá assistir. No Pacote Completo, ele poderá ser exibido na página pública por link.</small></div>
+            </div>
+
             <div class="field">
               <label>Outras observações</label>
               <textarea name="notes" maxlength="3000"></textarea>
@@ -193,7 +237,7 @@
 
             <label class="check">
               <input type="checkbox" name="publicationConsent">
-              <span>Tenho interesse em autorizar publicação no canal, quando o pacote incluir essa opção. A publicação depende de aprovação final.</span>
+              <span>Autorizo a publicação do vídeo no canal quando o pacote incluir essa opção, respeitando a visibilidade escolhida acima. A publicação depende de aprovação final.</span>
             </label>
 
             <label class="check">
@@ -245,7 +289,7 @@
         <details><summary>Como aprovo a letra?</summary><p>Você recebe um link por e-mail para conferir nomes, fatos e frases. É possível solicitar uma rodada de ajustes antes da aprovação final.</p></details>
         <details><summary>Como faço o pagamento?</summary><p>Somente depois que o pedido for aprovado. Você recebe a chave Pix por e-mail e responde à mesma mensagem com o comprovante.</p></details>
         <details><summary>Posso usar a minha música em vídeos?</summary><p>Sim. A versão final é produzida para você e poderá ser usada nos seus vídeos, redes sociais, projetos pessoais ou comerciais e no seu próprio canal. Nos pacotes com publicação no Senta no Grave, você continua podendo usar a música normalmente. Não é permitido revender a produção como serviço nem utilizar materiais de terceiros sem autorização.</p></details>
-        <details><summary>Quem recebe a página exclusiva?</summary><p>A página personalizada com player, letra, fotos, vídeo, downloads e acesso em “Minhas músicas” é exclusiva do Pacote Completo. Nos demais pacotes, os arquivos finais são enviados por e-mail com links do Google Drive.</p></details>
+        <details><summary>Quem recebe a página exclusiva?</summary><p>A página personalizada é exclusiva do Pacote Completo. Ela pode reunir player, letra, fotos, vídeo, downloads e, quando o cliente autorizar, links de Instagram, YouTube, TikTok, Facebook, X, site e WhatsApp. Nos demais pacotes, os arquivos finais são enviados por e-mail com links do Google Drive.</p></details>
       </div>
     </section>
 
